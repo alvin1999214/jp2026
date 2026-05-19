@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Japan Trip - 專屬任務機票</title>
+    <title>Japan Trip</title>
     <!-- 使用 Tailwind CSS 快速建構美觀的手機版網頁 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -58,7 +58,7 @@
             <div class="p-4 flex justify-between items-center border-b-2 border-dashed border-gray-200">
                 <div>
                     <p class="text-xs text-gray-500 uppercase font-bold">Passenger</p>
-                    <p class="text-lg font-bold text-gray-800">專屬女友 💖</p>
+                    <p class="text-lg font-bold text-gray-800">PoPo 💖 LaaLaa</p>
                 </div>
                 <div class="text-right">
                     <p class="text-xs text-gray-500 uppercase font-bold">Flight</p>
@@ -124,26 +124,33 @@
          */
         const travelData = [
             {
-                dateLabel: "6月19日 - 啟程",
+                dateLabel: "6月19日",
                 tasks: [
                     {
                         id: "task_0619_1",
-                        unlockTime: "2026-06-19T08:00:00", // 解鎖時間改為未來的年份
-                        question: "這次旅行的目的地是哪裏？",
-                        answer: "東京", // 答案 (需完全符合，但程式有做防呆，忽略空白與大小寫)
-                        successMsg: "恭喜答對了！🎉 請乘坐 JR 前往松本。"
+                        unlockTime: "2026-06-18T22:00:00",
+                        question: "今次旅行係去邊度呀？",
+                        answer: "東京",
+                        successMsg: "恭喜答中啦！🎉“獲得香港前往東京機票一張” 請尋找HX606的閘口前往登機~"
                     },
                     {
                         id: "task_0619_2",
-                        unlockTime: "2026-06-19T14:30:00", // 解鎖時間改為未來的年份
-                        question: "今天晚餐我們要吃什麼種類的食物？",
-                        answer: "壽司",
-                        successMsg: "沒錯！準備去吃好吃的迴轉壽司囉！🍣"
+                        unlockTime: "2026-06-19T08:30:00", 
+                        question: "歡迎到達東京成田機場~ 等等！收到消息，我地嘅目的地唔係東京？！",
+                        answer: "",
+                        successMsg: "“獲得鐵路車飛N張！” 請乘坐SKYLINE前往日暮里轉乘山手線前往新宿，乘坐中央線特急前往“松本車站”！"
+                    },
+                    {
+                        id: "task_0619_3",
+                        unlockTime: "2026-06-19T13:30:00",
+                        question: "歡迎到達松本車站~ 寶寶肚唔肚餓呀？",
+                        answer: "肚餓",
+                        successMsg: "唔可以餓親寶寶，立即前往TABINO HOTEL Lit MATSUMOTO放低行李去食野！"
                     }
                 ]
             },
             {
-                dateLabel: "6月20日 - 探索",
+                dateLabel: "6月20日",
                 tasks: [
                     {
                         id: "task_0620_1",
