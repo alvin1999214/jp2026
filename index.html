@@ -268,7 +268,7 @@
                 const isCompleted = isManualCompleted || isAutoCompleted;
 
                 // 根據解鎖狀態決定是否隱藏題目 (廣東話口語版)
-                const displayQuestion = isLocked ? "❓ 任務仲未解鎖，俾啲耐性等吓啦！" : task.question;
+                const displayQuestion = isLocked ? "❓ 請等等~ 新任務好快解鎖~" : task.question;
 
                 html += `
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 ticket-cutout mb-4 fade-in">
@@ -277,10 +277,10 @@
                                 🕒 ${unlockTime.getHours().toString().padStart(2, '0')}:${unlockTime.getMinutes().toString().padStart(2, '0')}
                             </span>
                             ${isCompleted ? 
-                                '<span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">✅ 搞掂啦</span>' : 
+                                '<span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">✅ 答啱啦</span>' : 
                               isLocked ? 
                                 '<span class="text-xs font-bold text-gray-400">🔒 未解鎖</span>' : 
-                                '<span class="text-xs font-bold text-blue-600 animate-pulse">🔥 進行緊</span>'
+                                '<span class="text-xs font-bold text-blue-600 animate-pulse">🔥 請作答</span>'
                             }
                         </div>
                         
@@ -310,14 +310,14 @@
                     // 狀態 3：解鎖中 (1小時內) - 讓使用者輸入答案
                     html += `
                         <div class="mt-3 space-y-2">
-                            <input type="text" id="input_${task.id}" placeholder="喺度打答案啦..." 
+                            <input type="text" id="input_${task.id}" placeholder="答案係..." 
                                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
-                            <p id="error_${task.id}" class="text-xs text-red-500 hidden font-bold">❌ 答案唔啱喎，再諗諗佢啦！</p>
+                            <p id="error_${task.id}" class="text-xs text-red-500 hidden font-bold">❌ 答案唔啱喎，再諗諗~</p>
                             <button onclick="checkAnswer('${task.id}', '${task.answer}', '${task.successMsg}')" 
                                     class="w-full bg-blue-600 text-white font-bold rounded-lg p-3 text-sm shadow-md hover:bg-blue-700 active:scale-95 transition-transform">
-                                交答案啦
+                                提交答案
                             </button>
-                            <p class="text-xs text-center text-gray-400 mt-2">提提你：1個鐘後如果冇答，就會自動解鎖㗎啦。</p>
+                            <p class="text-xs text-center text-gray-400 mt-2">提提你：你得一個鐘時間作答~</p>
                         </div>
                     `;
                 }
