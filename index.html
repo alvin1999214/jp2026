@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Japan Trip - 專屬任務機票</title>
+    <!-- 使用 Tailwind CSS 快速建構美觀的手機版網頁 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自訂機票樣式與動畫 */
+        body {
+            background-color: #f0f4f8; /* 換成清爽的淺藍灰背景色 */
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Heiti TC', sans-serif;
+        }
+        .ticket-cutout {
+            position: relative;
+        }
+        /* 機票兩側的半圓形凹槽 */
+        .ticket-cutout::before, .ticket-cutout::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #f0f4f8; /* 配合背景色 */
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .ticket-cutout::before { left: -10px; }
+        .ticket-cutout::after { right: -10px; }
+        
+        .barcode {
+            font-family: 'Libre Barcode 39', cursive; /* 模擬條碼視覺 */
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #333;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 隱藏 Tab 捲軸的樣式 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- 頂部機票 Header -->
+    <header class="max-w-md mx-auto mt-4 px-4">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border-t-8 border-blue-600">
+            <div class="p-4 flex justify-between items-center border-b-2 border-dashed border-gray-200">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold">Passenger</p>
+                    <p class="text-lg font-bold text-gray-800">專屬女友 💖</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-gray-500 uppercase font-bold">Flight</p>
+                    <p class="text-lg font-bold text-blue-600">JP-2026</p>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-50 flex justify-between items-center">
+                <div class="text-center">
+                    <p class="text-3xl font-black text-gray-800">HKG</p>
+                    <p class="text-xs text-gray-500">Hong Kong</p>
+                </div>
+                <div class="flex-1 px-4 flex flex-col items-center">
+                    <span class="text-2xl">✈️</span>
+                    <div class="w-full h-0.5 bg-gray-300 rounded mt-1"></div>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-black text-gray-800">NRT</p>
+                    <p class="text-xs text-gray-500">Tokyo</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 任務列表區塊 -->
+    <main class="max-w-md mx-auto mt-6 px-4">
+        <!-- 日期切換 Tabs -->
+        <div id="tabs-container" class="mb-2"></div>
+        
+        <!-- 任務卡片區塊 -->
+        <div id="task-container" class="space-y-6"></div>
+    </main>
+
+    <!-- 測試模式工具 (右下角懸浮) -->
+    <div id="test-mode-container" class="fixed bottom-4 right-4 z-50">
+        <button id="test-mode-btn" class="bg-gray-800 text-white p-3 rounded-full shadow-lg text-sm font-bold opacity-80 hover:opacity-100">
+            🛠️ 測試時間
+        </button>
+    </div>
+
+    <!-- 測試模式彈出視窗 -->
+    <div id="test-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg w-80 shadow-xl">
+            <h3 class="text-lg font-bold mb-4">開發者測試模式</h3>
+            <p class="text-xs text-gray-500 mb-2">模擬目前的手機時間，方便測試每一天的任務狀態。</p>
+            <input type="datetime-local" id="mock-time-input" class="w-full border p-2 rounded mb-4 text-sm">
+            <div class="flex justify-end space-x-2">
+                <button id="reset-time-btn" class="px-3 py-1 bg-gray-200 rounded text-sm">重置為真實時間</button>
+                <button id="close-test-btn" class="px-3 py-1 bg-blue-600 text-white rounded text-sm">確定套用</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * --- 系統設定 ---
+         */
+        const ENABLE_TEST_MODE = false; // 設為 false 即可隱藏右下角的測試按鈕
+
+        /**
+         * 1. 編輯區：任務資料 (JSON 格式)
+         * 請在此處新增或修改您的問題。
+         * unlockTime 格式必須為 "YYYY-MM-DDTHH:mm:ss" (中間有個大寫 T)
+         */
+        const travelData = [
+            {
+                dateLabel: "6月19日 - 啟程",
+                tasks: [
+                    {
+                        id: "task_0619_1",
+                        unlockTime: "2026-06-19T08:00:00", // 解鎖時間改為未來的年份
+                        question: "這次旅行的目的地是哪裏？",
+                        answer: "東京", // 答案 (需完全符合，但程式有做防呆，忽略空白與大小寫)
+                        successMsg: "恭喜答對了！🎉 請乘坐 JR 前往松本。"
+                    },
+                    {
+                        id: "task_0619_2",
+                        unlockTime: "2026-06-19T14:30:00", // 解鎖時間改為未來的年份
+                        question: "今天晚餐我們要吃什麼種類的食物？",
+                        answer: "壽司",
+                        successMsg: "沒錯！準備去吃好吃的迴轉壽司囉！🍣"
+                    }
+                ]
+            },
+            {
+                dateLabel: "6月20日 - 探索",
+                tasks: [
+                    {
+                        id: "task_0620_1",
+                        unlockTime: "2026-06-20T09:00:00", // 解鎖時間改為未來的年份
+                        question: "我們今天要去參觀哪座古城？",
+                        answer: "松本城",
+                        successMsg: "答對了！這是日本國寶城之一喔🏯"
+                    }
+                ]
+            }
+            // 可以繼續往下新增 6月21日 ~ 6月24日 的資料...
+        ];
+
+        // 系統變數
+        let mockDate = null; // 用於測試模式的假時間
+        let timerInterval = null;
+        let currentTabIndex = 0; // 記錄目前選擇的日期 Tab
+
+        // 切換 Tab 的函數
+        function switchTab(index) {
+            currentTabIndex = index;
+            renderTasks();
+        }
+
+        // 獲取當前時間 (如果測試模式有設定時間，就回傳測試時間)
+        function getCurrentTime() {
+            return mockDate ? new Date(mockDate) : new Date();
+        }
+
+        // 檢查答案的函數
+        function checkAnswer(taskId, correctAnswer, successMsg) {
+            const inputEl = document.getElementById(`input_${taskId}`);
+            const errorEl = document.getElementById(`error_${taskId}`);
+            // 移除空白並轉小寫，增加容錯率
+            const userAnswer = inputEl.value.trim().toLowerCase(); 
+            
+            if (userAnswer === correctAnswer.trim().toLowerCase()) {
+                // 答對了！存入 localStorage
+                localStorage.setItem(`completed_${taskId}`, "true");
+                renderTasks(); // 重新渲染畫面
+            } else {
+                errorEl.classList.remove('hidden');
+                setTimeout(() => errorEl.classList.add('hidden'), 2000);
+            }
+        }
+
+        // 計算倒數計時字串
+        function getCountdownString(targetDate, now) {
+            const diff = targetDate - now;
+            if (diff <= 0) return "";
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            if (hours > 24) {
+                const days = Math.floor(hours / 24);
+                return `將於 ${days} 天 ${hours % 24} 小時後解鎖`;
+            }
+            return `將於 ${hours} 小時 ${minutes} 分 ${seconds} 秒後解鎖`;
+        }
+
+        // 主渲染函數
+        function renderTasks() {
+            const tabsContainer = document.getElementById('tabs-container');
+            const taskContainer = document.getElementById('task-container');
+            const now = getCurrentTime();
+            
+            // 1. 渲染 Tabs
+            let tabsHtml = '<div class="flex overflow-x-auto space-x-2 py-2 no-scrollbar">';
+            travelData.forEach((day, index) => {
+                const isActive = index === currentTabIndex;
+                // 取 "-" 前面的日期部分作為 Tab 名稱，例如 "6月19日"
+                const shortDate = day.dateLabel.split(' - ')[0]; 
+                tabsHtml += `
+                    <button onclick="switchTab(${index})"
+                            class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold transition-colors border
+                            ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50'}">
+                        ${shortDate}
+                    </button>
+                `;
+            });
+            tabsHtml += '</div>';
+            tabsContainer.innerHTML = tabsHtml;
+
+            // 2. 渲染當前選定日期的任務
+            let html = '';
+            const currentDay = travelData[currentTabIndex];
+
+            html += `<h2 class="text-xl font-bold text-gray-800 ml-2 mt-4 mb-4 border-l-4 border-blue-600 pl-2">${currentDay.dateLabel}</h2>`;
+            
+            currentDay.tasks.forEach(task => {
+                const unlockTime = new Date(task.unlockTime);
+                // 1 小時 buffer = 解鎖時間 + 60分鐘 * 60秒 * 1000毫秒
+                const autoCompleteTime = new Date(unlockTime.getTime() + 60 * 60 * 1000); 
+                const isManualCompleted = localStorage.getItem(`completed_${task.id}`) === "true";
+                
+                const isLocked = now < unlockTime;
+                const isAutoCompleted = now >= autoCompleteTime;
+                const isCompleted = isManualCompleted || isAutoCompleted;
+
+                // 根據解鎖狀態決定是否隱藏題目
+                const displayQuestion = isLocked ? "❓ 任務尚未解鎖，敬請期待！" : task.question;
+
+                html += `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 ticket-cutout mb-4 fade-in">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                                🕒 ${unlockTime.getHours().toString().padStart(2, '0')}:${unlockTime.getMinutes().toString().padStart(2, '0')}
+                            </span>
+                            ${isCompleted ? 
+                                '<span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">✅ 已完成</span>' : 
+                              isLocked ? 
+                                '<span class="text-xs font-bold text-gray-400">🔒 未解鎖</span>' : 
+                                '<span class="text-xs font-bold text-blue-600 animate-pulse">🔥 進行中</span>'
+                            }
+                        </div>
+                        
+                        <h3 class="text-md font-bold text-gray-800 mb-2">${displayQuestion}</h3>
+                `;
+
+                if (isLocked) {
+                    // 狀態 1：鎖定中 (顯示倒數計時)
+                    html += `
+                        <div class="bg-gray-50 rounded-lg p-3 text-center border border-gray-200 mt-3">
+                            <span class="text-sm text-gray-500 countdown-text" data-target="${task.unlockTime}">
+                                ${getCountdownString(unlockTime, now)}
+                            </span>
+                        </div>
+                    `;
+                } else if (isCompleted) {
+                    // 狀態 2：已完成 (自動或手動) - 顯示成功訊息
+                    html += `
+                        <div class="bg-blue-50 rounded-lg p-4 mt-3 border border-blue-100">
+                            <p class="text-sm text-blue-700 font-bold">${task.successMsg}</p>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <span class="barcode text-gray-300">||| ||||| || ||||||</span>
+                        </div>
+                    `;
+                } else {
+                    // 狀態 3：解鎖中 (1小時內) - 讓使用者輸入答案
+                    html += `
+                        <div class="mt-3 space-y-2">
+                            <input type="text" id="input_${task.id}" placeholder="請輸入答案..." 
+                                   class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            <p id="error_${task.id}" class="text-xs text-red-500 hidden font-bold">❌ 答案不對喔，再想想！</p>
+                            <button onclick="checkAnswer('${task.id}', '${task.answer}', '${task.successMsg}')" 
+                                    class="w-full bg-blue-600 text-white font-bold rounded-lg p-3 text-sm shadow-md hover:bg-blue-700 active:scale-95 transition-transform">
+                                提交答案送出航班
+                            </button>
+                            <p class="text-xs text-center text-gray-400 mt-2">提示：1小時後若未作答將自動解鎖。</p>
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+            });
+
+            taskContainer.innerHTML = html;
+        }
+
+        // 每秒更新倒數計時 (不重新渲染整個畫面，只更新文字)
+        function updateCountdowns() {
+            const now = getCurrentTime();
+            const elements = document.querySelectorAll('.countdown-text');
+            let needsFullRender = false;
+
+            elements.forEach(el => {
+                const target = new Date(el.getAttribute('data-target'));
+                if (now >= target) {
+                    needsFullRender = true; // 時間到了，觸發重新渲染以顯示輸入框
+                } else {
+                    el.textContent = getCountdownString(target, now);
+                }
+            });
+
+            // 如果有任務剛好在這一秒超過 1 小時 buffer，也需要重新渲染
+            travelData.forEach(day => {
+                day.tasks.forEach(task => {
+                    const autoCompleteTime = new Date(new Date(task.unlockTime).getTime() + 60 * 60 * 1000);
+                    const isManualCompleted = localStorage.getItem(`completed_${task.id}`) === "true";
+                    // 剛好跨越自動完成的時間點且尚未手動完成
+                    if (now >= autoCompleteTime && now - autoCompleteTime < 2000 && !isManualCompleted) {
+                         needsFullRender = true;
+                    }
+                });
+            });
+
+            if (needsFullRender) renderTasks();
+        }
+
+        // 初始化
+        renderTasks();
+        timerInterval = setInterval(updateCountdowns, 1000);
+
+        // --- 測試模式邏輯 ---
+        const testModeContainer = document.getElementById('test-mode-container');
+        const testBtn = document.getElementById('test-mode-btn');
+        const testModal = document.getElementById('test-modal');
+        const closeTestBtn = document.getElementById('close-test-btn');
+        const resetTimeBtn = document.getElementById('reset-time-btn');
+        const mockTimeInput = document.getElementById('mock-time-input');
+
+        // 根據 flag 決定是否顯示測試按鈕
+        if (!ENABLE_TEST_MODE) {
+            testModeContainer.classList.add('hidden');
+        }
+
+        // 設定 input 的預設值為現在時間
+        const nowLocal = new Date();
+        nowLocal.setMinutes(nowLocal.getMinutes() - nowLocal.getTimezoneOffset());
+        mockTimeInput.value = nowLocal.toISOString().slice(0,16);
+
+        testBtn.addEventListener('click', () => {
+            testModal.classList.remove('hidden');
+        });
+
+        closeTestBtn.addEventListener('click', () => {
+            if (mockTimeInput.value) {
+                mockDate = new Date(mockTimeInput.value);
+            }
+            testModal.classList.add('hidden');
+            renderTasks(); // 套用新時間後重新渲染
+        });
+
+        resetTimeBtn.addEventListener('click', () => {
+            mockDate = null;
+            testModal.classList.add('hidden');
+            renderTasks();
+        });
+
+    </script>
+</body>
+</html>
