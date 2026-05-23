@@ -1,0 +1,157 @@
+[
+    {
+        "dateLabel": "6月18/19日 - 啟程",
+        "tasks": [
+            {
+                "id": "task_0618_1",
+                "unlockTime": "2026-06-18T22:00:00",
+                "type": "text",
+                "question": "準備 Check-in 啦！估下今次神秘旅行嘅目的地係邊度？(提示：日本最繁華嘅首都)",
+                "answer": "東京",
+                "successMsg": "恭喜答中！獲得前往東京機票一張 ✈️ 請尋找 HX606 嘅閘口準備登機~"
+            },
+            {
+                "id": "task_0619_1",
+                "unlockTime": "2026-06-19T08:30:00",
+                "type": "text",
+                "question": "順利抵達日本！收到神秘車票，估下我地依家要搭咩類型嘅火車出發？(提示：兩個字，有專屬座位可以補眠嘅列車級別)",
+                "answer": "特急",
+                "successMsg": "叻叻！係搭特急列車前往我地嘅大本營「松本」，呢幾個鐘可以喺車度補下眠 💤"
+            },
+            {
+                "id": "task_0619_2",
+                "unlockTime": "2026-06-19T14:15:00",
+                "type": "button",
+                "question": "到達神秘嘅目的地酒店啦，快啲 Check-in 放低行李！",
+                "successMsg": "搞掂！喺房休息一陣梳洗下先，一陣出發去附近玩。"
+            },
+            {
+                "id": "task_0619_3",
+                "unlockTime": "2026-06-19T15:00:00",
+                "type": "photo",
+                "question": "出發去松本城同周邊老街（繩手通）行下啦！用相機影低國寶松本城最靚嘅一面~",
+                "successMsg": "嘩好靚呀！陽光斜射影相真係最靚！"
+            }
+        ]
+    },
+    {
+        "dateLabel": "6月20日 - 白馬岩岳",
+        "tasks": [
+            {
+                "id": "task_0620_1",
+                "unlockTime": "2026-06-20T09:00:00",
+                "type": "text",
+                "question": "食完早餐出發！今日要去睇北阿爾卑斯山絕景，估下我地搭火車去邊個站？(提示：顏色+動物，兩個字)",
+                "answer": "白馬",
+                "successMsg": "答啱啦！出發去白馬站，準備轉車上山！"
+            },
+            {
+                "id": "task_0620_2",
+                "unlockTime": "2026-06-20T13:30:00",
+                "type": "photo",
+                "question": "去玩「巨型鞦韆」啦！記得影低飛向山谷最開心嘅一刻！",
+                "successMsg": "哈哈玩得好開心！北阿爾卑斯山絕景真係好正！"
+            },
+            {
+                "id": "task_0620_3",
+                "unlockTime": "2026-06-20T16:30:00",
+                "type": "button",
+                "question": "搭纜車落山準備返去啦，今日攰唔攰呀？",
+                "successMsg": "辛苦晒寶寶！返酒店好好休息啦，聽日繼續！"
+            }
+        ]
+    },
+    {
+        "dateLabel": "6月21日 - 文青Day",
+        "tasks": [
+            {
+                "id": "task_0621_1",
+                "unlockTime": "2026-06-21T10:00:00",
+                "type": "text",
+                "question": "今日轉走文青路線去江戶時代老街！望下手上張車票，目的地係咩站？(提示：三個字)",
+                "answer": "奈良井",
+                "successMsg": "叻叻！出發去充滿歷史氣息嘅「奈良井宿」！"
+            },
+            {
+                "id": "task_0621_2",
+                "unlockTime": "2026-06-21T11:30:00",
+                "type": "photo",
+                "question": "江戶時代木造老街真係好有feel！搵一間你最鍾意嘅木屋影張相！",
+                "successMsg": "好有味道嘅相！漫步老街真係好舒服！"
+            },
+            {
+                "id": "task_0621_3",
+                "unlockTime": "2026-06-21T16:30:00",
+                "type": "photo",
+                "question": "返到松本市區啦，去中町通深度散步，影低你覺得最特別嘅小店！",
+                "successMsg": "眼光真好！好好享受下悠閒嘅下午。"
+            }
+        ]
+    },
+    {
+        "dateLabel": "6月22日 - Shopping Day",
+        "tasks": [
+            {
+                "id": "task_0622_1",
+                "unlockTime": "2026-06-22T10:00:00",
+                "type": "text",
+                "question": "準備瘋狂 Shopping 未！搭新幹線去著名避暑勝地，估下係邊度？(提示：三個字，有全日本最大Outlet)",
+                "answer": "輕井澤",
+                "successMsg": "GOGOGO！出發去輕井澤血拼！"
+            },
+            {
+                "id": "task_0622_2",
+                "unlockTime": "2026-06-22T11:30:00",
+                "type": "photo",
+                "question": "舊輕井澤銀座通有好多果醬店同雜貨舖，充滿歐風別墅感！打個卡先~",
+                "successMsg": "充滿異國風情！買咗咩好野？"
+            },
+            {
+                "id": "task_0622_3",
+                "unlockTime": "2026-06-22T15:00:00",
+                "type": "photo",
+                "question": "王子購物廣場血拼時間！全日本最大最靚嘅 Outlet，影低你今日最滿意嘅戰利品！",
+                "successMsg": "買得好盡興！對住大草地同湖泊 Shopping 真係一流！"
+            }
+        ]
+    },
+    {
+        "dateLabel": "6月23日 - 諏訪湖日落",
+        "tasks": [
+            {
+                "id": "task_0623_1",
+                "unlockTime": "2026-06-23T10:00:00",
+                "type": "photo",
+                "question": "今日去美術館睇草間彌生！出面有巨大波點南瓜，快啲同佢合照！",
+                "successMsg": "好可愛嘅波點南瓜！真係好有藝術感！"
+            },
+            {
+                "id": "task_0623_2",
+                "unlockTime": "2026-06-23T18:30:00",
+                "type": "photo",
+                "question": "去立石公園睇日落，欣賞夕陽沉入湖面嘅魔幻時刻！影低呢個靚景！",
+                "successMsg": "好浪漫呀！呢度仲係《你的名字》嘅聖地黎架！"
+            }
+        ]
+    },
+    {
+        "dateLabel": "6月24日 - 完美回程",
+        "tasks": [
+            {
+                "id": "task_0624_1",
+                "unlockTime": "2026-06-24T08:45:00",
+                "type": "button",
+                "question": "最後一日啦，辦理退房準備出發去機場~",
+                "successMsg": "提早出發，搭 N'EX 去成田機場！"
+            },
+            {
+                "id": "task_0624_2",
+                "unlockTime": "2026-06-24T13:15:00",
+                "type": "text",
+                "question": "順利到達成田機場啦！準備返香港，呢個Trip開唔開心？",
+                "answer": "開心",
+                "successMsg": "咁就約定下次再一齊去旅行啦！💖"
+            }
+        ]
+    }
+]
