@@ -1,6 +1,6 @@
 [
     {
-        "dateLabel": "6月18/19日 - 啟程",
+        "dateLabel": "6月18/19日 - First Day",
         "tasks": [
             {
                 "id": "task_0618_1",
@@ -35,7 +35,7 @@
         ]
     },
     {
-        "dateLabel": "6月20日 - 白馬岩岳",
+        "dateLabel": "6月20日 - Happy Birthday",
         "tasks": [
             {
                 "id": "task_0620_1",
@@ -57,7 +57,7 @@
                 "unlockTime": "2026-06-20T16:30:00",
                 "type": "button",
                 "question": "搭纜車落山準備返去啦，今日攰唔攰呀？",
-                "successMsg": "辛苦晒寶寶！返酒店好好休息啦，聽日繼續！"
+                "successMsg": "辛苦晒寶寶！今晚返酒店好好休息！"
             }
         ]
     },
@@ -116,7 +116,7 @@
         ]
     },
     {
-        "dateLabel": "6月23日 - 諏訪湖日落",
+        "dateLabel": "6月23日 - Special Day",
         "tasks": [
             {
                 "id": "task_0623_1",
@@ -135,7 +135,7 @@
         ]
     },
     {
-        "dateLabel": "6月24日 - 完美回程",
+        "dateLabel": "6月24日 - Last Day",
         "tasks": [
             {
                 "id": "task_0624_1",
