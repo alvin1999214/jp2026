@@ -30,6 +30,13 @@
                 "type": "photo",
                 "question": "出發去松本城同周邊老街（繩手通）行下啦！用相機影低國寶松本城最靚嘅一面~",
                 "successMsg": "嘩好靚呀！陽光斜射影相真係最靚！"
+            },
+            {
+                "id": "task_0619_4",
+                "unlockTime": "2026-06-19T17:30:00",
+                "type": "button",
+                "question": "今晚特別任務，研究食咩好",
+                "successMsg": "OK~~"
             }
         ]
     },
