@@ -46,7 +46,7 @@
             {
                 "id": "task_0620_1",
                 "unlockTime": "2026-06-20T09:00:00",
-                "type": "text",
+                "type": "button",
                 "question": "今日係寶寶大日子，食完早餐出發！（請乘坐前往「白馬」嘅列車）",
                 "successMsg": "Lets Go~ 出發去白馬站，到達後乘坐巴士/Uber前往Iwatake Gondola NOAH"
             },
