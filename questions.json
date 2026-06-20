@@ -54,15 +54,15 @@
                 "id": "task_0620_2",
                 "unlockTime": "2026-06-20T13:30:00",
                 "type": "photo",
-                "question": "去玩「巨型韆鞦」啦！記得影低佢！",
+                "question": "去玩「巨型韆鞦」如果冇落雨😂",
                 "successMsg": "開心開心！"
             },
             {
                 "id": "task_0620_3",
-                "unlockTime": "2026-06-20T16:30:00",
+                "unlockTime": "2026-06-20T15:00:00",
                 "type": "button",
                 "question": "搭纜車落山準備返去~",
-                "successMsg": "食完Dinner再食蛋糕~"
+                "successMsg": "返到松本食完Dinner再食蛋糕~"
             },
             {
                 "id": "task_0620_4",
